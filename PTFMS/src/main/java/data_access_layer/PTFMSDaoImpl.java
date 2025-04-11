@@ -16,7 +16,6 @@ import data_transfer_object.ScheduleMaintenance;
 import data_transfer_object.Station;
 import data_transfer_object.Transit_Log;
 import data_transfer_object.Users;
-import data_transfer_object.vehicle.FuelType;
 import data_transfer_object.vehicle.Vehicle;
 import data_transfer_object.vehicle.VehicleFactory;
 import data_transfer_object.vehicle.VehicleType;
@@ -45,34 +44,9 @@ public class PTFMSDaoImpl implements PTFMSDao {
             Connection con = PTFMSDatabase.getConnection(); //get database connection.
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users ORDER BY user_id");
             ResultSet rs = pstmt.executeQuery(); //Execute the query
-
-            // Retrieve metadata from ResultSet to display column attributes.
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            // Display column metadata (name, type, class).
-            System.out.println("\nPTFMS Users");
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.printf("%-8s\t", metaData.getColumnName(i));
-                System.out.printf("%-8s\t", metaData.getColumnTypeName(i));
-                System.out.printf("%-8s\t", metaData.getColumnClassName(i));
-                System.out.printf("\n");
-            }
-
-            System.out.println();
-            // Display the column names as headers for the ResultSet data.    
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.printf("%-25s\t", metaData.getColumnName(i));
-            }
-            System.out.println();
-
+            
             // Process each row in the ResultSet and add it to the list.     
             while (rs.next()) {
-
-                for (int i = 1; i <= columnCount; i++) {
-                    System.out.printf("%-25s\t", rs.getObject(i));
-                }
-                System.out.println();
                 Users user = new Users();
 
                 // Get the data from ResultSet and populate the recipient object.
@@ -191,51 +165,17 @@ public class PTFMSDaoImpl implements PTFMSDao {
 
     @Override
     public List<Transit_Log> getAllTransitLogs() {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        ArrayList<Transit_Log> logs = null;
+        List<Transit_Log> logs = new ArrayList<>();
+        String query = "SELECT * FROM transit_log";
 
-        try {
-            con = PTFMSDatabase.getConnection(); //get database connection.
+        try (Connection connection = PTFMSDatabase.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
 
-            //Query to retrieve all records from the Recipients table.
-            String query = "SELECT * FROM transit_log ORDER BY log_id";
-            pstmt = con.prepareStatement(query);
-
-            rs = pstmt.executeQuery(); //Execute the query
-            logs = new ArrayList<Transit_Log>(); //Initialize the list to store data.
-
-            // Retrieve metadata from ResultSet to display column attributes.
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            // Display column metadata (name, type, class).
-            System.out.println("\nPTFMS Transit Log");
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.printf("%-8s\t", metaData.getColumnName(i));
-                System.out.printf("%-8s\t", metaData.getColumnTypeName(i));
-                System.out.printf("%-8s\t", metaData.getColumnClassName(i));
-                System.out.printf("\n");
-            }
-
-            System.out.println();
-            // Display the column names as headers for the ResultSet data.    
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.printf("%-25s\t", metaData.getColumnName(i));
-            }
-            System.out.println();
-
-            // Process each row in the ResultSet and add it to the list.     
             while (rs.next()) {
-
-                for (int i = 1; i <= columnCount; i++) {
-                    System.out.printf("%-25s\t", rs.getObject(i));
-                }
-                System.out.println();
                 Transit_Log log = new Transit_Log();
 
-                // Get the data from ResultSet and populate the recipient object.
+                // Get the data from ResultSet and populate the transit_log object.
                 int log_id = rs.getInt("log_id");
                 log.setLogID(log_id);
 
@@ -390,11 +330,11 @@ public class PTFMSDaoImpl implements PTFMSDao {
                 }
                 System.out.println();
                 Vehicle vehicle = switch (rs.getString("vehicle_type")) {
-                    case "Diesel_Bus" ->
+                    case "Diesel Bus" ->
                         VehicleFactory.buildVehicle(VehicleType.Diesel_Bus);
-                    case "Electric_Light_Rail" ->
+                    case "Electric Light Rail" ->
                         VehicleFactory.buildVehicle(VehicleType.Electric_Light_Rail);
-                    case "Diesel_Electric_Train" ->
+                    case "Diesel-Electric Train" ->
                         VehicleFactory.buildVehicle(VehicleType.Diesel_Electric_Train);
                     default ->
                         null;

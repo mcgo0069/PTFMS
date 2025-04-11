@@ -14,7 +14,7 @@ import java.util.List;
  * @author Eddy Su
  */
 public class ViewArrivalTimesServlet extends HttpServlet {
-
+private static boolean viewTable = false;
     /**
      * 
      * @param request
@@ -49,11 +49,9 @@ public class ViewArrivalTimesServlet extends HttpServlet {
             out.println("</select>");
             out.println("<button type='submit'>Submit</button>");
 
-            if (!isEmpty(request.getParameter("vehicle id"))) {
+            if (request.getParameter("action").equals("vehicle id")) {
                 out.println("<h2>View Arrival Times</h2>");
                 out.println("<table border='1'><tr><th>Vehicle ID</th><th>Route</th><th>Estimated Arrival</th></tr>");
-                out.println("<tr><td>1001</td><td>Blue Line</td><td>14:32</td></tr>");
-                out.println("<tr><td>1002</td><td>Green Line</td><td>14:45</td></tr>");
 
                 for (Vehicle vehicle : vehicles) {
                     for (AssignedRoute route : assigned_routes) {

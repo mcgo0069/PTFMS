@@ -22,11 +22,11 @@ public class RegisterVehicleServlet extends HttpServlet {
         if (!isEmpty(request.getParameter("vehicle type"))) {
             //builds the vehicle for the selected type
             vehicle = switch (request.getParameter("vehicle type")) {
-                case "Diesel_Bus" ->
+                case "Diesel Bus" ->
                     VehicleFactory.buildVehicle(VehicleType.Diesel_Bus);
-                case "Electric_Light_Rail" ->
+                case "Electric Light Rail" ->
                     VehicleFactory.buildVehicle(VehicleType.Electric_Light_Rail);
-                case "Diesel_Electric_Train" ->
+                case "Diesel-Electric Train" ->
                     VehicleFactory.buildVehicle(VehicleType.Diesel_Electric_Train);
                 default ->
                     null;
