@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/PTFMS">
+  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="jdbc/hello" password="CST8288" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/ptfms?zeroDateTimeBehavior=CONVERT_TO_NULL" username="CST8288"/>
+</Context>

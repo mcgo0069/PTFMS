@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
+    <!-- Front Controller Servlet -->
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>viewlayer.FrontController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>TransitManagerFrontController</servlet-name>
+        <servlet-class>viewlayer.TransitManagerFrontController</servlet-class>
+    </servlet>
+    <!-- CRUD Servlets -->
+
+    <servlet>
+        <servlet-name>RegisterAccountServlet</servlet-name>
+        <servlet-class>viewlayer.RegisterAccountServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>RegisterVehicleServlet</servlet-name>
+        <servlet-class>viewlayer.RegisterVehicleServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>LogOutOfServiceServlet</servlet-name>
+        <servlet-class>viewlayer.LogOutOfServiceServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ViewArrivalTimesServlet</servlet-name>
+        <servlet-class>viewlayer.ViewArrivalTimesServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ScheduleMaintenanceServlet</servlet-name>
+        <servlet-class>viewlayer.ScheduleMaintenanceServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>ViewReportServlet</servlet-name>
+        <servlet-class>viewlayer.ViewReportServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>AlertServlet</servlet-name>
+        <servlet-class>viewlayer.AlertServlet</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/FrontController</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>TransitManagerFrontController</servlet-name>
+        <url-pattern>/TransitManagerFrontController</url-pattern>
+    </servlet-mapping>
+
+    <!-- Add mappings for CRUD servlets as needed -->
+    <servlet-mapping>
+        <servlet-name>RegisterAccountServlet</servlet-name>
+        <url-pattern>/RegisterAccountServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>RegisterVehicleServlet</servlet-name>
+        <url-pattern>/RegisterVehicleServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>LogOutOfServiceServlet</servlet-name>
+        <url-pattern>/LogOutOfServiceServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ViewArrivalTimesServlet</servlet-name>
+        <url-pattern>/ViewArrivalTimesServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ScheduleMaintenanceServlet</servlet-name>
+        <url-pattern>/ScheduleMaintenanceServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ViewReportServlet</servlet-name>
+        <url-pattern>/ViewReportServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AlertServlet</servlet-name>
+        <url-pattern>/AlertServlet</url-pattern>
+    </servlet-mapping>
+    <!-- Session Configuration -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+</web-app>
